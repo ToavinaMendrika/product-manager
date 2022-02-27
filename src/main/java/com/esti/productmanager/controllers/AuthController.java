@@ -1,11 +1,13 @@
 package com.esti.productmanager.controllers;
 
 import com.esti.productmanager.dto.AuthenticationResponseDto;
+import com.esti.productmanager.dto.JwtChekDto;
 import com.esti.productmanager.dto.UserDto;
 import com.esti.productmanager.services.UserDetailsService;
 import com.esti.productmanager.services.UserService;
 import com.esti.productmanager.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -44,14 +46,13 @@ public class AuthController {
     public ResponseEntity<?> authenticate(@Valid  @RequestBody UserDto userDto) throws Exception {
         try {
             authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
-                    userDto.getUsername(), userDto.getPassword()
-            ));
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password", e);
-        }
-        final UserDetails userDetails = userDetailService.loadUserByUsername(userDto.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails);
+                    userDto.getUsername(), userDto.getPassword()));
+            final UserDetails userDetails = userDetailService.loadUserByUsername(userDto.getUsername());
+            final String jwt = jwtUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponseDto(jwt));
+            return ResponseEntity.ok(new AuthenticationResponseDto(jwt));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"username or password is wrong\"}");
+        }
     }
 }

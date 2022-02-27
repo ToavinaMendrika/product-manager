@@ -4,6 +4,7 @@ import com.esti.productmanager.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,9 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.esti.productmanager.entities.User user = userRepository.findAllByUsername(username);
+        if (user == null) {
+            throw new  UsernameNotFoundException("Username or password is wrong");
+        }
         return new User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 }

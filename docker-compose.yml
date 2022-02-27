@@ -7,7 +7,6 @@ services:
       - POSTGRES_PASSWORD=spring
       - POSTGRES_USER=spring
       - POSTGRES_DB=spring
-    restart: always             # run as a service
     ports:
       - "5432:5432"
     volumes:
