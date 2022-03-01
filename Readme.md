@@ -22,6 +22,8 @@ Demarer avec docker:
 ```
 
 
-## Front
+## Initialisation
 
-´´´  sfdf ´´´
+1) Il faut céér un untilisateur par defaut avec les idendifiant et mdp admin/admi.
+Il faut aller sur l'url http://localhost:8081/api/auth/createadmin pour générer l'utilisateur.
+2) Se connecter avec admin/admins
