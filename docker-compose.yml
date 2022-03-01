@@ -6,7 +6,6 @@ services:
       - "8081:8081"
     depends_on:
       - db
-      - ./front/product-manager
   db:
     image: postgres:13
     user: root
