@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +54,8 @@ public class AuthController {
             return ResponseEntity.ok(new AuthenticationResponseDto(jwt));
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"username or password is wrong\"}");
+        } catch (UsernameNotFoundException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"username not found\"}");
         }
     }
 }

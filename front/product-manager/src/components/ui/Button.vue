@@ -14,11 +14,11 @@ function handleClick(e) {
 </script>
 <template>
   <div class="field" v-if="isField">
-    <button @click="handleClick" :class="'button ' +  color   + [isFullWidth ? ' is-fullwidth': '']" >
-      Login
+    <button :type="type" @click="handleClick" :class="'button ' +  color   + [isFullWidth ? ' is-fullwidth': '']" >
+      <slot />
     </button>
   </div>
-  <button @click="handleClick" :class="'button ' +  color   + [isFullWidth ? ' is-fullwidth': '']" v-else>
+  <button :type="type" @click="handleClick" :class="'button ' +  color   + [isFullWidth ? ' is-fullwidth': '']" v-else>
     <slot />
   </button>
 </template>

@@ -20,10 +20,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
+    @Column(length = 512)
     private String description;
 
+    @Column(nullable = false)
     private Float price;
 
     @Temporal(TemporalType.TIMESTAMP)

@@ -1,9 +1,11 @@
 <script setup>
-import {ref} from "vue";
 
 const props = defineProps({
   type: String,
-  background: String,
+  background: {
+    default: 'is-light',
+    type: String
+  },
   isActive: {
     type: Boolean,
     default: false

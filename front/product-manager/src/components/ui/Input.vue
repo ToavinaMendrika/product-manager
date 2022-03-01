@@ -1,7 +1,5 @@
 <script setup>
 
-import {reactive} from "vue";
-
 const props = defineProps({
   label: String,
   type: String,
@@ -21,7 +19,7 @@ function updateValue(event) {
 </script>
 
 <template>
-  <div class="field">
+  <div class="field" v-if="type !== 'textarea'">
     <label :for="id" class="label">{{ label }}</label>
     <div :class="[fa ? 'control has-icons-left': 'control']">
 
@@ -32,5 +30,9 @@ function updateValue(event) {
       </span>
     </div>
 
+  </div>
+  <div class="field" v-else>
+    <label :for="id" class="label">{{ label }}</label>
+    <textarea  :id="id" @input="updateValue" class="textarea" :placeholder="placeholder">{{ value }}</textarea>
   </div>
 </template>
